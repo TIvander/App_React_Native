@@ -10,6 +10,7 @@ import AppBalao from './AppBalao';
 import AppBanco from './AppBanco';
 import AbreConta from './AbreConta';
 import Tabs from './Tabs';
+import Login from './Login'
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 const Stack = createNativeStackNavigator();
@@ -19,7 +20,8 @@ export default function Route() {
   return (
     <View>
       <NavigationContainer>
-        <Stack.Navigator initialRouterName="Home">
+        <Stack.Navigator initialRouterName="Login">
+        <Stack.Screen name="Login" component={ Login }/>
           <Stack.Screen name="Home" component={ Home }/>  
           <Stack.Screen name="Sobre" component={ Sobre }/> 
           <Stack.Screen name="AbrirConta" component= { AbrirConta }/>  

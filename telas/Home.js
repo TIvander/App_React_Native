@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Button, Text, View, StyleSheet, SafeAreaView, TextInput } from 'react-native';
+import { Animated, Button, Text, View, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Collors from '../styles/Collors';
 import AssetExample from '../components/LogoHome';
 import MyButton from '../components/MyButton';
 import Separar from '../components/separar';
 import { Card } from 'react-native-paper';
+import { auth } from './firebase';
+import { useNavigation } from '@react-navigation/native';
 
 const FadeInView = (props) => {
   
@@ -32,7 +34,13 @@ export default function App({ navigation }) {
 
   const [text, onChangeText] = React.useState("");
   const [number, onChangeNumber] = React.useState("");
-
+  const handleSignOut = () =>{
+    auth.signOut()
+    .then(() =>{
+      navigation.replace("Login")
+    })
+    .catch(error => alert(error.message))
+  }
   const acessar = () => {
       if(text!= '' && number != '' ){
           alert('seja bem-vindo')
@@ -42,40 +50,14 @@ export default function App({ navigation }) {
   }
   
   return (
-    <View style={Collors.bodyColorHome}>
+    <View style={[Collors.bodyColorHome, styles.container]}>
       <FadeInView>
         <AssetExample />
       </FadeInView>
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="Nome"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="**********"
-          keyboardType="numeric"
-        />
-      </SafeAreaView>
 
       <FadeInView>
-        <MyButton
-          title="Login"
-          color="blue"
-          navigation={navigation}
-          destino="Tabs"
-        />
+       
         <Separar />
-        <MyButton
-          title="Cadastre-se"
-          color="#baed2f"
-          navigation={navigation}
-          destino="AbrirConta"
-        />
       </FadeInView>
       <Separar />
       <Separar />
@@ -93,6 +75,15 @@ export default function App({ navigation }) {
         destino="AppBanco"
       />
       <Separar />
+     <TouchableOpacity
+     onPress={handleSignOut}
+     style={styles.button}
+    
+     >
+      <Text style={styles.buttonText}>Sair</Text>
+     
+     </TouchableOpacity>
+        
     </View>
   );
 }
@@ -106,4 +97,27 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
   },
+  button: {
+    backgroundColor: '#00cc00',
+    width: '25%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center'
+},
+buttonOutLine: {
+    backgroundColor: 'white',
+    marginTop: 5,
+    borderColor: '#00cc00',
+    borderWidth:2,
+},
+buttonText: {
+    color:'white',
+    fontWeight: '700',
+    fontSize: 16
+},
+  container: {
+      justifyContent:'center',
+      alignItems:'center',
+      
+  }
 });

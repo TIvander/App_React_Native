@@ -20,10 +20,6 @@ export default function About( { navigation } ) {
           destino = "Home"
       />
       <Separar/>
-     
-}
-      
-      
     </View>
   )
 }
