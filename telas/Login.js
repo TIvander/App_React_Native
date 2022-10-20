@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-paper'
 import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase';
 import { useNavigation } from '@react-navigation/native';
-
+import MyButton from '../components/MyButton';
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -63,12 +63,13 @@ const Login = () => {
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={handleSignup}
-                    style={[styles.button, styles.buttonOutLine]}
-                >
-                    <Text style={styles.buttonOutLineText}>Registre-se</Text>
-                </TouchableOpacity>
+                
+                <MyButton
+        title="Registre-se"
+        color="#00cc00"
+        navigation={navigation}
+        destino="AbrirConta"
+      />
             </View>
         </KeyboardAvoidingView>
     )
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
     container: {
         justifyContent:'center',
         alignItems:'center',
-        
     },
     inputContainer: {
         width: '80%'
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         borderRadius: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 5
     },
     buttonOutLine: {
         backgroundColor: 'white',
